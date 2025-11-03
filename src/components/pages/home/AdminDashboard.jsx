@@ -519,7 +519,10 @@ const AdminDashboard = () => {
         {/* Summary Cards */}
         <Row gutter={[16, 16]}>
           <Col xs={24} sm={12} lg={6}>
-            <ResponsiveCard className="relative overflow-hidden shadow-md h-full  transition-all duration-300 border-0">
+            <ResponsiveCard
+              hoverable
+              className="relative overflow-hidden shadow-md h-full  transition-all duration-300 border-0"
+            >
               <div className="relative z-10">
                 <div className="flex items-center justify-between mb-4">
                   <div className="p-3 bg-green-100 rounded-xl shadow-sm">
@@ -543,7 +546,10 @@ const AdminDashboard = () => {
           </Col>
 
           <Col xs={24} sm={12} lg={6}>
-            <ResponsiveCard className="relative overflow-hidden shadow-md h-full bg-linear-to-br from-blue-50 to-cyan-50  transition-all duration-300 border-0">
+            <ResponsiveCard
+              hoverable
+              className="relative overflow-hidden shadow-md h-full bg-linear-to-br from-blue-50 to-cyan-50  transition-all duration-300 border-0"
+            >
               <div className="relative z-10">
                 <div className="flex items-center justify-between mb-4">
                   <div className="p-3 bg-blue-100 rounded-xl shadow-sm">
@@ -565,7 +571,10 @@ const AdminDashboard = () => {
           </Col>
 
           <Col xs={24} sm={12} lg={6}>
-            <ResponsiveCard className="relative overflow-hidden shadow-md h-full  transition-all duration-300 border-0">
+            <ResponsiveCard
+              hoverable
+              className="relative overflow-hidden shadow-md h-full  transition-all duration-300 border-0"
+            >
               <div className="relative z-10">
                 <div className="flex items-center justify-between mb-4">
                   <div className="p-3 bg-orange-100 rounded-xl shadow-sm">
@@ -589,7 +598,10 @@ const AdminDashboard = () => {
           </Col>
 
           <Col xs={24} sm={12} lg={6}>
-            <ResponsiveCard className="relative overflow-hidden shadow-md h-full transition-all duration-300 border-0">
+            <ResponsiveCard
+              hoverable
+              className="relative overflow-hidden shadow-md h-full transition-all duration-300 border-0"
+            >
               <div className="relative z-10">
                 <div className="flex items-center justify-between mb-4">
                   <div className="p-3 bg-purple-100 rounded-xl shadow-sm">

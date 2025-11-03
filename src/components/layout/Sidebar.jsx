@@ -7,9 +7,8 @@ import POCKET_PARCEL_MOBILE from "../../assets/Pocket_parcel_Mobile.png";
 
 //icons
 import { AiOutlinePieChart, AiTwotoneContainer } from "react-icons/ai";
-import { HiHome } from "react-icons/hi";
 import { TbBuildingWarehouse, TbTruckReturn } from "react-icons/tb";
-import { DollarCircleOutlined } from "@ant-design/icons";
+import { DollarCircleOutlined, HomeOutlined } from "@ant-design/icons";
 import { FaUsersCog, FaWarehouse } from "react-icons/fa";
 import { BiCabinet } from "react-icons/bi";
 
@@ -17,13 +16,13 @@ const { Sider } = Layout;
 const sidebarData = [
   {
     key: "home",
-    icon: <HiHome />,
+    icon: <HomeOutlined />,
     label: <Link to="/home">Home</Link>,
   },
   {
     key: "dashboard",
     icon: <AiOutlinePieChart />,
-    label: <Link to="/dashboard/domestic/overview">Dashboard</Link>,
+    label: <Link to="/dashboard">Dashboard</Link>,
   },
   {
     key: "revenue-dashboard",
