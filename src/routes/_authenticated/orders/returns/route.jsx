@@ -68,12 +68,13 @@ function RouteComponent() {
         ]}
       />
       <Tabs
-        className="bg-white"
+        // className="bg-white"
         defaultActiveKey="1"
         renderTabBar={renderTabBar}
         items={items}
         onChange={handleChange}
         activeKey={search.state || "create"}
+        type="card"
       />
     </PageLayout>
   );
