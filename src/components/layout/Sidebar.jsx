@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "@tanstack/react-router";
-import { Menu, Layout } from "antd";
+import { Layout } from "antd";
 import POCKET_PARCEL_DESKTOP from "../../assets/Pocket_parcel_Desktop.svg";
 import POCKET_PARCEL_MOBILE from "../../assets/Pocket_parcel_Mobile.png";
 
@@ -11,6 +11,8 @@ import { TbBuildingWarehouse, TbTruckReturn } from "react-icons/tb";
 import { DollarCircleOutlined, HomeOutlined } from "@ant-design/icons";
 import { FaUsersCog, FaWarehouse } from "react-icons/fa";
 import { BiCabinet } from "react-icons/bi";
+import SidebarMenu from "./SidebarMenu";
+import { Drawer } from "antd";
 
 const { Sider } = Layout;
 const sidebarData = [
@@ -222,7 +224,13 @@ const sidebarData = [
   // },
 ];
 
-const Sidebar = ({ collapsed, setCollapsed }) => {
+const Sidebar = ({
+  collapsed,
+  setCollapsed,
+  isMobile,
+  drawerVisible,
+  setDrawerVisible,
+}) => {
   const location = useLocation();
 
   const findActiveKey = (pathname) => {
@@ -281,7 +289,6 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
 
     return { selectedKey: "", openKey: "", openKeys: [] };
   };
-
   const { selectedKey, openKeys: activeOpenKeys } = findActiveKey(
     location.pathname
   );
@@ -309,92 +316,82 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
     setStoredOpenKeys(activeOpenKeys);
   }, [location.pathname]);
 
-  return (
-    <div className="z-100  shadow-[2px_0px_10px_0px_#a0aec0]">
-      <Sider
-        collapsed={collapsed}
-        onCollapse={setCollapsed}
-        collapsible
-        width={240}
-        className="custom-scrollbar sidebar-container transition-all ease-in-out duration-300"
-        // theme="light"
-      >
-        {/* 🔹 Fixed Header */}
-        {/* <div className="h-16 sticky top-0 z-10 mb-2 flex items-center justify-center bg-[#001529] text-white font-bold text-xl border-b border-gray-700">
-          <Link to="/home" className="w-full text-center relative ">
-            <span
-              className={`text-white absolute inset-0 flex justify-center items-center transition-all duration-300 ease-in-out ${
-                collapsed ? "opacity-0 scale-0" : "opacity-100 scale-100"
-              }`}
-            >
-              Pocket Parcel
-            </span>
-            <span
-              className={`text-white absolute inset-0 flex justify-center items-center transition-all duration-300 ease-in-out ${
-                collapsed ? "opacity-100 scale-100" : "opacity-0 scale-0"
-              }`}
-            >
-              PP
-            </span>
-          </Link>
-        </div> */}
-        <div className="h-16 sticky top-0 z-10 mb-2 flex items-center justify-center bg-white ">
-          <Link to="/home" className="flex items-center justify-center w-full">
-            {!collapsed ? (
-              <img
-                src={POCKET_PARCEL_DESKTOP}
-                alt="Pocket Parcel Desktop Logo"
-                className="max-w-20 h-auto object-contain"
-              />
-            ) : (
-              <img
-                src={POCKET_PARCEL_MOBILE}
-                alt="Pocket Parcel Mobile Logo"
-                className="max-w-10 h-auto object-contain"
-              />
-            )}
-          </Link>
-        </div>
-
-        <div
-          style={{
-            overflowY: "auto",
-            // overflowX: "hidden",
-            // position: "fixed",
-            maxHeight: "calc(100vh - 153px)",
-            minHeight: "calc(100vh - 153px)",
-            top: 0,
-            bottom: 0,
-            // scrollbarWidth: "thin",
+  if (!isMobile) {
+    return (
+      <div className="z-100">
+        <Sider
+          collapsed={collapsed}
+          onCollapse={(collapsed) => {
+            localStorage.setItem("sidebar_collapsed", collapsed);
+            setCollapsed(collapsed);
           }}
-          className="custom-scrollbar flex flex-col"
+          collapsible
+          width={240}
+          className="custom-scrollbar sidebar-container transition-all ease-in-out duration-300"
+          // theme="light"
         >
-          <Menu
-            theme="dark"
-            mode="inline"
-            selectedKeys={[selectedKey]}
-            openKeys={collapsed ? undefined : openKeys} // <-- Use 'undefined' when collapsed
-            onOpenChange={onOpenChange}
-            items={sidebarData}
-          />
-        </div>
-      </Sider>
-      {/* Toggle button outside sidebar */}
+          <div className="h-16 sticky top-0 z-10 mb-2 flex items-center justify-center bg-white ">
+            <Link
+              to="/home"
+              className="flex items-center justify-center w-full"
+            >
+              {!collapsed ? (
+                <img
+                  src={POCKET_PARCEL_DESKTOP}
+                  alt="Logo"
+                  className="max-w-20 h-auto object-contain"
+                />
+              ) : (
+                <img
+                  src={POCKET_PARCEL_MOBILE}
+                  alt="Logo"
+                  className="max-w-10 h-auto object-contain"
+                />
+              )}
+            </Link>
+          </div>
 
-      {/* <FaAnglesRight
-        style={{
-          position: "fixed",
-          top: 22,
-          left: collapsed ? 80 : 240,
-          transitionDelay: "130ms",
-          animationDelay: "130ms",
-        }}
-        className={`bg-white text-[#001529] border border-[#001529] cursor-pointer text-xl 2xl:text-2xl p-1 rounded-full duration-300 ${
-          collapsed ? "-right-10" : "rotate-180 -right-10"
-        }`}
-        onClick={() => setCollapsed(!collapsed)}
-      /> */}
-    </div>
+          <div
+            style={{
+              overflowY: "auto",
+              // overflowX: "hidden",
+              // position: "fixed",
+              maxHeight: "calc(100vh - 153px)",
+              minHeight: "calc(100vh - 153px)",
+              top: 0,
+              bottom: 0,
+              // scrollbarWidth: "thin",
+            }}
+            className="custom-scrollbar flex flex-col"
+          >
+            <SidebarMenu
+              collapsed={collapsed}
+              onOpenChange={onOpenChange}
+              openKeys={openKeys}
+              selectedKey={selectedKey}
+              sidebarData={sidebarData}
+            />
+          </div>
+        </Sider>
+      </div>
+    );
+  }
+
+  return (
+    <Drawer
+      title="Menu"
+      open={drawerVisible}
+      onClose={() => setDrawerVisible(false)}
+    >
+      <SidebarMenu
+        collapsed={collapsed}
+        onOpenChange={onOpenChange}
+        openKeys={openKeys}
+        selectedKey={selectedKey}
+        sidebarData={sidebarData}
+        theme="light"
+      />
+    </Drawer>
   );
 };
 
