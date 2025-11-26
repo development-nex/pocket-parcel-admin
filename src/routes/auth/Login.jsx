@@ -118,7 +118,7 @@ function LoginComponent() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-tr from-[#f0a991] to-[#1024dd] p-4">
+    <div className="min-h-screen flex items-center justify-center bg-linear-to-tr from-[#f0a991] to-[#1024dd] p-4">
       {/* <div className="w-full max-w-5xl backdrop-blur-xl bg-white/20   shadow-2xl rounded-xl overflow-hidden grid grid-cols-1 md:grid-cols-2"> */}
       <div className="w-full max-w-5xl bg-[#db5730]   shadow-2xl rounded-xl overflow-hidden grid grid-cols-1 md:grid-cols-2">
         {/* LEFT SIDE — IMAGE (hidden on small screens) */}
