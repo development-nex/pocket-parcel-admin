@@ -36,9 +36,10 @@ export const updateLocationServiceability = async ({ id, data }) => {
 };
 
 // Toggle Location Serviceability
-export const toggleLocationServiceability = async (id) => {
-  const response = await axiosInstance.put(
-    `v1/admin/serviceability/locations/${id}/toggle`
+export const toggleLocationServiceability = async ({ id, data }) => {
+  const response = await axiosInstance.patch(
+    `v1/admin/serviceability/locations/${id}/toggle`,
+    data
   );
   return response.data;
 };

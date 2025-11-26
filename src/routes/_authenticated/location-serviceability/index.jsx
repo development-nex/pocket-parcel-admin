@@ -2,15 +2,20 @@ import PageLayout from "@/components/layout/PageLayout";
 import ResponsiveCard from "@/components/ui/cards/ResponsiveCard";
 import ErrorFallback from "@/components/ui/ErrorFallback";
 import UrlPagination from "@/components/ui/UrlPagination";
-import { useGetLocationServiceability } from "@/features/location-serviceability/location-serviceability.query";
+import {
+  useGetLocationServiceability,
+  useToggleLocationServiceability,
+} from "@/features/location-serviceability/location-serviceability.query";
 import { removeUnderscores } from "@/utils/typography.util";
 import { validatePagination } from "@/utils/validatePagination.util";
-import { useSearch } from "@tanstack/react-router";
+import { useQueryClient } from "@tanstack/react-query";
+import { useNavigate, useSearch } from "@tanstack/react-router";
 import { Link } from "@tanstack/react-router";
 import { createFileRoute } from "@tanstack/react-router";
 import { Button, Space } from "antd";
+import { message } from "antd";
+import { Switch } from "antd";
 import { Tooltip } from "antd";
-import { Badge } from "antd";
 import { Tag } from "antd";
 import { Table } from "antd";
 
@@ -22,14 +27,32 @@ export const Route = createFileRoute(
 });
 
 function RouteComponent() {
+  const queryClient = useQueryClient();
+  const navigate = useNavigate();
   const { page, limit } = useSearch({ strict: false });
   const { data, isLoading, isError, error } = useGetLocationServiceability({
     limit,
     page,
   });
-  if (isError) {
-    return <ErrorFallback error={error} />;
-  }
+
+  const { mutate: toggleMutate, isPending: isTogglePending } =
+    useToggleLocationServiceability({
+      onSuccess: async () => {
+        await queryClient.invalidateQueries(["location-serviceability"]);
+        message.success("Location updated successfully");
+        navigate({ to: "/location-serviceability" });
+      },
+    });
+
+  const handleToggle = (record) => {
+    const data = {
+      is_serviceable: record?.is_serviceable === true ? false : true,
+    };
+    toggleMutate({
+      id: record?.id,
+      data,
+    });
+  };
 
   const columns = [
     {
@@ -53,12 +76,14 @@ function RouteComponent() {
     {
       title: "Serviceable",
       dataIndex: "is_serviceable",
-      render: (val) =>
-        val ? (
-          <Badge status="success" text="Yes" />
-        ) : (
-          <Badge status="error" text="No" />
-        ),
+      render: (_, record) => (
+        <Switch
+          value={record.is_serviceable}
+          checkedChildren="Yes"
+          unCheckedChildren="No"
+          onChange={() => handleToggle(record)}
+        />
+      ),
     },
     {
       title: "Service Types",
@@ -92,11 +117,24 @@ function RouteComponent() {
         </Space>
       ),
     },
+
+    {
+      title: "Status",
+      dataIndex: "status",
+      render: (status) =>
+        status === "ACTIVE" ? (
+          <Tag color="green">ACTIVE</Tag>
+        ) : (
+          <Tag color="red">INACTIVE</Tag>
+        ),
+    },
     {
       title: "Operational Hours",
       dataIndex: "operational_hours",
+      fixed: "right",
       render: (hours) => {
-        if (!hours) return <Tag color="default">Not Provided</Tag>;
+        if (!hours || Object.entries(hours).length === 0)
+          return <Tag color="default">Not Provided</Tag>;
 
         return (
           <Tooltip
@@ -114,17 +152,6 @@ function RouteComponent() {
           </Tooltip>
         );
       },
-    },
-    {
-      title: "Status",
-      dataIndex: "status",
-      fixed: "right",
-      render: (status) =>
-        status === "ACTIVE" ? (
-          <Tag color="green">ACTIVE</Tag>
-        ) : (
-          <Tag color="red">INACTIVE</Tag>
-        ),
     },
     // Actions
     {
@@ -148,6 +175,10 @@ function RouteComponent() {
     },
   ];
 
+  if (isError) {
+    return <ErrorFallback error={error} />;
+  }
+
   return (
     <PageLayout
       items={[
@@ -168,7 +199,7 @@ function RouteComponent() {
         <Table
           size="small"
           scroll={{ x: "max-content" }}
-          loading={isLoading}
+          loading={isLoading || isTogglePending}
           bordered
           columns={columns}
           dataSource={data?.data?.locations}
