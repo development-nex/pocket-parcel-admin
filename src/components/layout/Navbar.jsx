@@ -11,10 +11,10 @@ const items = [
     key: "/access-control/users",
     label: <Link to="/access-control/users">Manage Users</Link>,
   },
-  {
-    key: "/profile",
-    label: <Link to="/profile">My Profile</Link>,
-  },
+  // {
+  //   key: "/profile",
+  //   label: <Link to="/profile">My Profile</Link>,
+  // },
   {
     key: "logout",
     label: "Logout",
