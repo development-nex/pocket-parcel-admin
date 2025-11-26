@@ -78,13 +78,11 @@ function RouteComponent() {
     },
     {
       title: "Total Area",
-      render: (_, record) =>
-        `${JSON.parse(record?.capacity_info || {})?.total_area} sqft`,
+      render: (_, record) => `${record?.capacity_info?.total_area}`,
     },
     {
       title: "Storage Capacity",
-      render: (_, record) =>
-        `${JSON.parse(record?.capacity_info || {})?.storage_capacity} sqft`,
+      render: (_, record) => `${record?.capacity_info?.storage_capacity}`,
     },
     {
       title: "Status",

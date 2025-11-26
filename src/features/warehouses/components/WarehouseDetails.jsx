@@ -1,5 +1,13 @@
 /* eslint-disable react/prop-types */
-import { Card, Tag, Descriptions, Divider, Badge, Collapse, Empty } from "antd";
+import {
+  Tag,
+  Descriptions,
+  Divider,
+  Badge,
+  Collapse,
+  Empty,
+  Button,
+} from "antd";
 import {
   EnvironmentOutlined,
   UserOutlined,
@@ -7,24 +15,71 @@ import {
   PhoneOutlined,
   MailOutlined,
   ClusterOutlined,
+  EditOutlined,
+  DeleteOutlined,
 } from "@ant-design/icons";
-import { useMemo } from "react";
+
 import ResponsiveCard from "@/components/ui/cards/ResponsiveCard";
+import AddLocationModal from "./AddLocationModal";
+import { useState } from "react";
+import EditLocationModal from "./EditLocationModal";
+import { useDeleteWarehouseLocation } from "../warehouses.query";
+import { message } from "antd";
+import { useQueryClient } from "@tanstack/react-query";
+import { Modal } from "antd";
 
 export default function WarehouseDetails({ data }) {
-  // Parse JSON safely
-  const capacityInfo = useMemo(() => {
-    try {
-      return JSON.parse(data?.capacity_info || "{}");
-    } catch (e) {
-      console.log(e);
-    }
-  }, [data]);
+  const queryClient = useQueryClient();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [editData, setEditData] = useState(null);
+
+  const { mutate: deleteLocationMutate } = useDeleteWarehouseLocation({
+    onSuccess: async () => {
+      await queryClient.invalidateQueries(["warehouse", data?.id]);
+      message.success("Location deleted successfully");
+    },
+  });
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
 
   const locations = data?.locations || [];
 
+  const capacityInfo = Object.entries(data?.capacity_info || {});
+  const handleEditData = (e, data) => {
+    e.stopPropagation();
+    setEditData(data);
+    setIsEditModalOpen(true);
+  };
+
+  const handleDeleteLocation = (e, id) => {
+    e.stopPropagation();
+    Modal.confirm({
+      title: "Would you like to deactivate this location?",
+      content:
+        "The deactivate action will be permanent, and there will be no option to undo or reverse it.",
+      okText: "Yes",
+      okType: "danger",
+      cancelText: "No",
+      onOk: () => {
+        deleteLocationMutate(id);
+      },
+    });
+  };
   return (
     <div>
+      <AddLocationModal
+        warehouseId={data?.id}
+        open={isModalOpen}
+        onClose={handleCloseModal}
+      />
+      <EditLocationModal
+        open={isEditModalOpen}
+        onClose={() => setIsEditModalOpen(false)}
+        warehouseId={editData?.id}
+        initialData={editData}
+      />
       {/* HEADER */}
       <div className="flex items-center gap-4">
         <ClusterOutlined className="text-blue-600 text-4xl" />
@@ -64,35 +119,34 @@ export default function WarehouseDetails({ data }) {
         <Descriptions.Item label="Operating Hours">
           🕒 {data?.operating_hours}
         </Descriptions.Item>
-
-        <Descriptions.Item label="Created At">
-          {new Date(data?.created_at).toLocaleString()}
-        </Descriptions.Item>
-
-        <Descriptions.Item label="Updated At">
-          {new Date(data?.updated_at).toLocaleString()}
-        </Descriptions.Item>
       </Descriptions>
 
       {/* CAPACITY INFO */}
-      <Divider orientation="left">Capacity Information</Divider>
-
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        {Object.entries(capacityInfo).map(([key, value]) => (
-          <ResponsiveCard
-            title={key.replace(/_/g, " ").toUpperCase()}
-            size="small"
-            key={key}
-            className="shadow-sm"
-          >
-            <div>{value}</div>
-          </ResponsiveCard>
-        ))}
-      </div>
+      {capacityInfo?.length !== 0 && (
+        <>
+          <Divider orientation="left">Capacity Information</Divider>
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+            {capacityInfo?.map(([key, value]) => (
+              <ResponsiveCard
+                title={key.replace(/_/g, " ").toUpperCase()}
+                size="small"
+                key={key}
+                className="shadow-sm"
+              >
+                <div>{value}</div>
+              </ResponsiveCard>
+            ))}
+          </div>
+        </>
+      )}
 
       {/* LOCATIONS */}
       <Divider orientation="left">Warehouse Locations</Divider>
-
+      <div className="flex justify-end my-4">
+        <Button type="primary" onClick={() => setIsModalOpen(true)}>
+          Add Location
+        </Button>
+      </div>
       {locations.length === 0 && <Empty description="No Locations Found" />}
 
       {locations.length > 0 && (
@@ -110,19 +164,48 @@ export default function WarehouseDetails({ data }) {
               <Collapse.Panel
                 key={loc?.id}
                 header={
-                  <div className="flex items-center gap-2">
-                    <HomeOutlined className="text-blue-600" />
-                    <span className="font-medium">{loc?.location_name}</span>
-                    {loc?.is_primary && (
-                      <Tag color="gold" className="ml-2">
-                        Primary
-                      </Tag>
-                    )}
-                    {loc?.is_active ? (
-                      <Badge status="success" text="Active" className="ml-3" />
-                    ) : (
-                      <Badge status="error" text="Inactive" className="ml-3" />
-                    )}
+                  <div className="flex justify-between gap-4">
+                    <div className="flex items-center gap-2">
+                      <HomeOutlined className="text-blue-600" />
+                      <span className="font-medium">{loc?.location_name}</span>
+                      {loc?.is_primary && (
+                        <Tag color="gold" className="ml-2">
+                          Primary
+                        </Tag>
+                      )}
+                      {loc?.is_active ? (
+                        <Badge
+                          status="success"
+                          text="Active"
+                          className="ml-3"
+                        />
+                      ) : (
+                        <Badge
+                          status="error"
+                          text="Inactive"
+                          className="ml-3"
+                        />
+                      )}
+                    </div>
+                    <div className="flex gap-2">
+                      <Button
+                        onClick={(e) => handleEditData(e, loc)}
+                        icon={<EditOutlined />}
+                        type="primary"
+                        size="small"
+                      >
+                        Edit
+                      </Button>
+                      <Button
+                        onClick={(e) => handleDeleteLocation(e, loc?.id)}
+                        icon={<DeleteOutlined />}
+                        type="primary"
+                        danger
+                        size="small"
+                      >
+                        Delete
+                      </Button>
+                    </div>
                   </div>
                 }
               >
@@ -133,13 +216,17 @@ export default function WarehouseDetails({ data }) {
                     {loc?.country} - {loc?.pincode}
                   </Descriptions.Item>
 
-                  <Descriptions.Item label="Landmark">
-                    {loc?.landmark}
-                  </Descriptions.Item>
+                  {loc?.landmark && (
+                    <Descriptions.Item label="Landmark">
+                      {loc?.landmark}
+                    </Descriptions.Item>
+                  )}
 
-                  <Descriptions.Item label="Coordinates">
-                    📍 ({loc?.latitude}, {loc?.longitude})
-                  </Descriptions.Item>
+                  {loc?.latitude && loc?.longitude && (
+                    <Descriptions.Item label="Coordinates">
+                      📍 ({loc?.latitude}, {loc?.longitude})
+                    </Descriptions.Item>
+                  )}
 
                   <Descriptions.Item label="Location Type">
                     <Tag color="purple">{loc?.location_type}</Tag>
@@ -153,13 +240,15 @@ export default function WarehouseDetails({ data }) {
                     {loc?.floor_info}
                   </Descriptions.Item>
 
-                  <Descriptions.Item label="Special Features">
-                    {features.map((f) => (
-                      <Tag key={f} color="cyan" className="mb-1">
-                        {f}
-                      </Tag>
-                    ))}
-                  </Descriptions.Item>
+                  {features.length > 0 && (
+                    <Descriptions.Item label="Special Features">
+                      {features.map((f) => (
+                        <Tag key={f} color="cyan" className="mb-1">
+                          {f}
+                        </Tag>
+                      ))}
+                    </Descriptions.Item>
+                  )}
                 </Descriptions>
               </Collapse.Panel>
             );

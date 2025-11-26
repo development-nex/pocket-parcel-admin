@@ -56,7 +56,7 @@ function RouteComponent() {
         contact_phone: values.contact_phone || "",
         contact_email: values.contact_email || "",
         warehouse_type: "DISTRIBUTION",
-        capacity_info: JSON.stringify(capacityObj),
+        capacity_info: capacityObj,
         operating_hours: values.operating_hours || "",
         locations,
       };
