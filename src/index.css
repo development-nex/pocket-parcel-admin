@@ -115,3 +115,22 @@ h6 {
   /* background-color: #6366f1 !important; */
   color: #fff !important;
 }
+
+/* For Chrome, Edge, Safari */
+.ant-table-body::-webkit-scrollbar,
+.ant-table-content::-webkit-scrollbar {
+  height: 6px;
+  background: transparent;
+}
+.ant-table-body::-webkit-scrollbar-thumb,
+.ant-table-content::-webkit-scrollbar-thumb {
+  background: #eaeaea;
+  border-radius: 999px;
+}
+
+/* For Firefox */
+.ant-table-body,
+.ant-table-content {
+  scrollbar-width: thin;
+  scrollbar-color: #eaeaea transparent;
+}

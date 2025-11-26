@@ -151,6 +151,11 @@ const sidebarData = [
     label: <Link to="/carrier-partners">Carrier Partners</Link>,
   },
   {
+    key: "location-serviceability",
+    icon: <FaUsersCog />,
+    label: <Link to="/location-serviceability">Location Serviceability</Link>,
+  },
+  {
     key: "rack",
     icon: <BiCabinet />,
     label: <Link to="/rack">Rack</Link>,
