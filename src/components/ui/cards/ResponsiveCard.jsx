@@ -37,7 +37,7 @@ const ResponsiveCard = ({
         title ? (
           <div className={`flex flex-col ${subTitle && "pt-2"}`}>
             <div className="leading-4.5">{title}</div>
-            <small className="!font-light">{subTitle}</small>
+            <small className="font-light!">{subTitle}</small>
           </div>
         ) : null
       }
