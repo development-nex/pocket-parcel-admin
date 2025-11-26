@@ -16,6 +16,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthLoginRouteImport } from './routes/auth/Login'
 import { Route as AuthenticatedSettingsRouteRouteImport } from './routes/_authenticated/settings/route'
 import { Route as AuthenticatedDashboardRouteRouteImport } from './routes/_authenticated/dashboard/route'
+import { Route as AuthenticatedWarehousesIndexRouteImport } from './routes/_authenticated/warehouses/index'
 import { Route as AuthenticatedWarehousePartnersIndexRouteImport } from './routes/_authenticated/warehouse-partners/index'
 import { Route as AuthenticatedToolsIndexRouteImport } from './routes/_authenticated/tools/index'
 import { Route as AuthenticatedRackIndexRouteImport } from './routes/_authenticated/rack/index'
@@ -30,8 +31,8 @@ import { Route as AuthenticatedToolsRateCalculatorRouteRouteImport } from './rou
 import { Route as AuthenticatedOrdersReturnsRouteRouteImport } from './routes/_authenticated/orders/returns/route'
 import { Route as AuthenticatedDashboardInternationalRouteRouteImport } from './routes/_authenticated/dashboard/international/route'
 import { Route as AuthenticatedDashboardDomesticRouteRouteImport } from './routes/_authenticated/dashboard/domestic/route'
-import { Route as AuthenticatedWarehouseListIndexRouteImport } from './routes/_authenticated/warehouse/list/index'
-import { Route as AuthenticatedWarehouseCreateIndexRouteImport } from './routes/_authenticated/warehouse/create/index'
+import { Route as AuthenticatedWarehousesCreateIndexRouteImport } from './routes/_authenticated/warehouses/create/index'
+import { Route as AuthenticatedWarehousesIdIndexRouteImport } from './routes/_authenticated/warehouses/$id/index'
 import { Route as AuthenticatedWarehousePartnersAddIndexRouteImport } from './routes/_authenticated/warehouse-partners/add/index'
 import { Route as AuthenticatedToolsActivityLogsIndexRouteImport } from './routes/_authenticated/tools/activity-logs/index'
 import { Route as AuthenticatedSettingsUsersIndexRouteImport } from './routes/_authenticated/settings/users/index'
@@ -53,6 +54,7 @@ import { Route as AuthenticatedLocationServiceabilityIdIndexRouteImport } from '
 import { Route as AuthenticatedCarrierPartnersAddIndexRouteImport } from './routes/_authenticated/carrier-partners/add/index'
 import { Route as AuthenticatedAccessControlUsersIndexRouteImport } from './routes/_authenticated/access-control/users/index'
 import { Route as AuthenticatedToolsReportsDownloadReportsRouteRouteImport } from './routes/_authenticated/tools/reports/download-reports/route'
+import { Route as AuthenticatedWarehousesIdEditIndexRouteImport } from './routes/_authenticated/warehouses/$id/edit/index'
 import { Route as AuthenticatedToolsReportsReportsSchedulerIndexRouteImport } from './routes/_authenticated/tools/reports/reports-scheduler/index'
 import { Route as AuthenticatedToolsRateCardReverseIndexRouteImport } from './routes/_authenticated/tools/rate-card/reverse/index'
 import { Route as AuthenticatedToolsRateCardForwardIndexRouteImport } from './routes/_authenticated/tools/rate-card/forward/index'
@@ -103,6 +105,12 @@ const AuthenticatedDashboardRouteRoute =
   AuthenticatedDashboardRouteRouteImport.update({
     id: '/dashboard',
     path: '/dashboard',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedWarehousesIndexRoute =
+  AuthenticatedWarehousesIndexRouteImport.update({
+    id: '/warehouses/',
+    path: '/warehouses/',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
 const AuthenticatedWarehousePartnersIndexRoute =
@@ -186,16 +194,16 @@ const AuthenticatedDashboardDomesticRouteRoute =
     path: '/domestic',
     getParentRoute: () => AuthenticatedDashboardRouteRoute,
   } as any)
-const AuthenticatedWarehouseListIndexRoute =
-  AuthenticatedWarehouseListIndexRouteImport.update({
-    id: '/warehouse/list/',
-    path: '/warehouse/list/',
+const AuthenticatedWarehousesCreateIndexRoute =
+  AuthenticatedWarehousesCreateIndexRouteImport.update({
+    id: '/warehouses/create/',
+    path: '/warehouses/create/',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
-const AuthenticatedWarehouseCreateIndexRoute =
-  AuthenticatedWarehouseCreateIndexRouteImport.update({
-    id: '/warehouse/create/',
-    path: '/warehouse/create/',
+const AuthenticatedWarehousesIdIndexRoute =
+  AuthenticatedWarehousesIdIndexRouteImport.update({
+    id: '/warehouses/$id/',
+    path: '/warehouses/$id/',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
 const AuthenticatedWarehousePartnersAddIndexRoute =
@@ -323,6 +331,12 @@ const AuthenticatedToolsReportsDownloadReportsRouteRoute =
     id: '/download-reports',
     path: '/download-reports',
     getParentRoute: () => AuthenticatedToolsReportsRouteRoute,
+  } as any)
+const AuthenticatedWarehousesIdEditIndexRoute =
+  AuthenticatedWarehousesIdEditIndexRouteImport.update({
+    id: '/warehouses/$id/edit/',
+    path: '/warehouses/$id/edit/',
+    getParentRoute: () => AuthenticatedRoute,
   } as any)
 const AuthenticatedToolsReportsReportsSchedulerIndexRoute =
   AuthenticatedToolsReportsReportsSchedulerIndexRouteImport.update({
@@ -482,6 +496,7 @@ export interface FileRoutesByFullPath {
   '/rack': typeof AuthenticatedRackIndexRoute
   '/tools': typeof AuthenticatedToolsIndexRoute
   '/warehouse-partners': typeof AuthenticatedWarehousePartnersIndexRoute
+  '/warehouses': typeof AuthenticatedWarehousesIndexRoute
   '/tools/reports/download-reports': typeof AuthenticatedToolsReportsDownloadReportsRouteRouteWithChildren
   '/access-control/users': typeof AuthenticatedAccessControlUsersIndexRoute
   '/carrier-partners/add': typeof AuthenticatedCarrierPartnersAddIndexRoute
@@ -503,8 +518,8 @@ export interface FileRoutesByFullPath {
   '/settings/users': typeof AuthenticatedSettingsUsersIndexRoute
   '/tools/activity-logs': typeof AuthenticatedToolsActivityLogsIndexRoute
   '/warehouse-partners/add': typeof AuthenticatedWarehousePartnersAddIndexRoute
-  '/warehouse/create': typeof AuthenticatedWarehouseCreateIndexRoute
-  '/warehouse/list': typeof AuthenticatedWarehouseListIndexRoute
+  '/warehouses/$id': typeof AuthenticatedWarehousesIdIndexRoute
+  '/warehouses/create': typeof AuthenticatedWarehousesCreateIndexRoute
   '/access-control/roles/create': typeof AuthenticatedAccessControlRolesCreateIndexRoute
   '/access-control/users/create': typeof AuthenticatedAccessControlUsersCreateIndexRoute
   '/dashboard/domestic/ndr': typeof AuthenticatedDashboardDomesticNdrIndexRoute
@@ -524,6 +539,7 @@ export interface FileRoutesByFullPath {
   '/tools/rate-card/forward': typeof AuthenticatedToolsRateCardForwardIndexRoute
   '/tools/rate-card/reverse': typeof AuthenticatedToolsRateCardReverseIndexRoute
   '/tools/reports/reports-scheduler': typeof AuthenticatedToolsReportsReportsSchedulerIndexRoute
+  '/warehouses/$id/edit': typeof AuthenticatedWarehousesIdEditIndexRoute
   '/tools/reports/download-reports/instant-reports': typeof AuthenticatedToolsReportsDownloadReportsInstantReportsIndexRoute
   '/tools/reports/download-reports/scheduled-reports': typeof AuthenticatedToolsReportsDownloadReportsScheduledReportsIndexLazyRoute
 }
@@ -546,6 +562,7 @@ export interface FileRoutesByTo {
   '/rack': typeof AuthenticatedRackIndexRoute
   '/tools': typeof AuthenticatedToolsIndexRoute
   '/warehouse-partners': typeof AuthenticatedWarehousePartnersIndexRoute
+  '/warehouses': typeof AuthenticatedWarehousesIndexRoute
   '/tools/reports/download-reports': typeof AuthenticatedToolsReportsDownloadReportsRouteRouteWithChildren
   '/access-control/users': typeof AuthenticatedAccessControlUsersIndexRoute
   '/carrier-partners/add': typeof AuthenticatedCarrierPartnersAddIndexRoute
@@ -567,8 +584,8 @@ export interface FileRoutesByTo {
   '/settings/users': typeof AuthenticatedSettingsUsersIndexRoute
   '/tools/activity-logs': typeof AuthenticatedToolsActivityLogsIndexRoute
   '/warehouse-partners/add': typeof AuthenticatedWarehousePartnersAddIndexRoute
-  '/warehouse/create': typeof AuthenticatedWarehouseCreateIndexRoute
-  '/warehouse/list': typeof AuthenticatedWarehouseListIndexRoute
+  '/warehouses/$id': typeof AuthenticatedWarehousesIdIndexRoute
+  '/warehouses/create': typeof AuthenticatedWarehousesCreateIndexRoute
   '/access-control/roles/create': typeof AuthenticatedAccessControlRolesCreateIndexRoute
   '/access-control/users/create': typeof AuthenticatedAccessControlUsersCreateIndexRoute
   '/dashboard/domestic/ndr': typeof AuthenticatedDashboardDomesticNdrIndexRoute
@@ -588,6 +605,7 @@ export interface FileRoutesByTo {
   '/tools/rate-card/forward': typeof AuthenticatedToolsRateCardForwardIndexRoute
   '/tools/rate-card/reverse': typeof AuthenticatedToolsRateCardReverseIndexRoute
   '/tools/reports/reports-scheduler': typeof AuthenticatedToolsReportsReportsSchedulerIndexRoute
+  '/warehouses/$id/edit': typeof AuthenticatedWarehousesIdEditIndexRoute
   '/tools/reports/download-reports/instant-reports': typeof AuthenticatedToolsReportsDownloadReportsInstantReportsIndexRoute
   '/tools/reports/download-reports/scheduled-reports': typeof AuthenticatedToolsReportsDownloadReportsScheduledReportsIndexLazyRoute
 }
@@ -612,6 +630,7 @@ export interface FileRoutesById {
   '/_authenticated/rack/': typeof AuthenticatedRackIndexRoute
   '/_authenticated/tools/': typeof AuthenticatedToolsIndexRoute
   '/_authenticated/warehouse-partners/': typeof AuthenticatedWarehousePartnersIndexRoute
+  '/_authenticated/warehouses/': typeof AuthenticatedWarehousesIndexRoute
   '/_authenticated/tools/reports/download-reports': typeof AuthenticatedToolsReportsDownloadReportsRouteRouteWithChildren
   '/_authenticated/access-control/users/': typeof AuthenticatedAccessControlUsersIndexRoute
   '/_authenticated/carrier-partners/add/': typeof AuthenticatedCarrierPartnersAddIndexRoute
@@ -633,8 +652,8 @@ export interface FileRoutesById {
   '/_authenticated/settings/users/': typeof AuthenticatedSettingsUsersIndexRoute
   '/_authenticated/tools/activity-logs/': typeof AuthenticatedToolsActivityLogsIndexRoute
   '/_authenticated/warehouse-partners/add/': typeof AuthenticatedWarehousePartnersAddIndexRoute
-  '/_authenticated/warehouse/create/': typeof AuthenticatedWarehouseCreateIndexRoute
-  '/_authenticated/warehouse/list/': typeof AuthenticatedWarehouseListIndexRoute
+  '/_authenticated/warehouses/$id/': typeof AuthenticatedWarehousesIdIndexRoute
+  '/_authenticated/warehouses/create/': typeof AuthenticatedWarehousesCreateIndexRoute
   '/_authenticated/access-control/roles/create/': typeof AuthenticatedAccessControlRolesCreateIndexRoute
   '/_authenticated/access-control/users/create/': typeof AuthenticatedAccessControlUsersCreateIndexRoute
   '/_authenticated/dashboard/domestic/ndr/': typeof AuthenticatedDashboardDomesticNdrIndexRoute
@@ -654,6 +673,7 @@ export interface FileRoutesById {
   '/_authenticated/tools/rate-card/forward/': typeof AuthenticatedToolsRateCardForwardIndexRoute
   '/_authenticated/tools/rate-card/reverse/': typeof AuthenticatedToolsRateCardReverseIndexRoute
   '/_authenticated/tools/reports/reports-scheduler/': typeof AuthenticatedToolsReportsReportsSchedulerIndexRoute
+  '/_authenticated/warehouses/$id/edit/': typeof AuthenticatedWarehousesIdEditIndexRoute
   '/_authenticated/tools/reports/download-reports/instant-reports/': typeof AuthenticatedToolsReportsDownloadReportsInstantReportsIndexRoute
   '/_authenticated/tools/reports/download-reports/scheduled-reports/': typeof AuthenticatedToolsReportsDownloadReportsScheduledReportsIndexLazyRoute
 }
@@ -678,6 +698,7 @@ export interface FileRouteTypes {
     | '/rack'
     | '/tools'
     | '/warehouse-partners'
+    | '/warehouses'
     | '/tools/reports/download-reports'
     | '/access-control/users'
     | '/carrier-partners/add'
@@ -699,8 +720,8 @@ export interface FileRouteTypes {
     | '/settings/users'
     | '/tools/activity-logs'
     | '/warehouse-partners/add'
-    | '/warehouse/create'
-    | '/warehouse/list'
+    | '/warehouses/$id'
+    | '/warehouses/create'
     | '/access-control/roles/create'
     | '/access-control/users/create'
     | '/dashboard/domestic/ndr'
@@ -720,6 +741,7 @@ export interface FileRouteTypes {
     | '/tools/rate-card/forward'
     | '/tools/rate-card/reverse'
     | '/tools/reports/reports-scheduler'
+    | '/warehouses/$id/edit'
     | '/tools/reports/download-reports/instant-reports'
     | '/tools/reports/download-reports/scheduled-reports'
   fileRoutesByTo: FileRoutesByTo
@@ -742,6 +764,7 @@ export interface FileRouteTypes {
     | '/rack'
     | '/tools'
     | '/warehouse-partners'
+    | '/warehouses'
     | '/tools/reports/download-reports'
     | '/access-control/users'
     | '/carrier-partners/add'
@@ -763,8 +786,8 @@ export interface FileRouteTypes {
     | '/settings/users'
     | '/tools/activity-logs'
     | '/warehouse-partners/add'
-    | '/warehouse/create'
-    | '/warehouse/list'
+    | '/warehouses/$id'
+    | '/warehouses/create'
     | '/access-control/roles/create'
     | '/access-control/users/create'
     | '/dashboard/domestic/ndr'
@@ -784,6 +807,7 @@ export interface FileRouteTypes {
     | '/tools/rate-card/forward'
     | '/tools/rate-card/reverse'
     | '/tools/reports/reports-scheduler'
+    | '/warehouses/$id/edit'
     | '/tools/reports/download-reports/instant-reports'
     | '/tools/reports/download-reports/scheduled-reports'
   id:
@@ -807,6 +831,7 @@ export interface FileRouteTypes {
     | '/_authenticated/rack/'
     | '/_authenticated/tools/'
     | '/_authenticated/warehouse-partners/'
+    | '/_authenticated/warehouses/'
     | '/_authenticated/tools/reports/download-reports'
     | '/_authenticated/access-control/users/'
     | '/_authenticated/carrier-partners/add/'
@@ -828,8 +853,8 @@ export interface FileRouteTypes {
     | '/_authenticated/settings/users/'
     | '/_authenticated/tools/activity-logs/'
     | '/_authenticated/warehouse-partners/add/'
-    | '/_authenticated/warehouse/create/'
-    | '/_authenticated/warehouse/list/'
+    | '/_authenticated/warehouses/$id/'
+    | '/_authenticated/warehouses/create/'
     | '/_authenticated/access-control/roles/create/'
     | '/_authenticated/access-control/users/create/'
     | '/_authenticated/dashboard/domestic/ndr/'
@@ -849,6 +874,7 @@ export interface FileRouteTypes {
     | '/_authenticated/tools/rate-card/forward/'
     | '/_authenticated/tools/rate-card/reverse/'
     | '/_authenticated/tools/reports/reports-scheduler/'
+    | '/_authenticated/warehouses/$id/edit/'
     | '/_authenticated/tools/reports/download-reports/instant-reports/'
     | '/_authenticated/tools/reports/download-reports/scheduled-reports/'
   fileRoutesById: FileRoutesById
@@ -894,6 +920,13 @@ declare module '@tanstack/react-router' {
       path: '/dashboard'
       fullPath: '/dashboard'
       preLoaderRoute: typeof AuthenticatedDashboardRouteRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/warehouses/': {
+      id: '/_authenticated/warehouses/'
+      path: '/warehouses'
+      fullPath: '/warehouses'
+      preLoaderRoute: typeof AuthenticatedWarehousesIndexRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
     '/_authenticated/warehouse-partners/': {
@@ -994,18 +1027,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDashboardDomesticRouteRouteImport
       parentRoute: typeof AuthenticatedDashboardRouteRoute
     }
-    '/_authenticated/warehouse/list/': {
-      id: '/_authenticated/warehouse/list/'
-      path: '/warehouse/list'
-      fullPath: '/warehouse/list'
-      preLoaderRoute: typeof AuthenticatedWarehouseListIndexRouteImport
+    '/_authenticated/warehouses/create/': {
+      id: '/_authenticated/warehouses/create/'
+      path: '/warehouses/create'
+      fullPath: '/warehouses/create'
+      preLoaderRoute: typeof AuthenticatedWarehousesCreateIndexRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
-    '/_authenticated/warehouse/create/': {
-      id: '/_authenticated/warehouse/create/'
-      path: '/warehouse/create'
-      fullPath: '/warehouse/create'
-      preLoaderRoute: typeof AuthenticatedWarehouseCreateIndexRouteImport
+    '/_authenticated/warehouses/$id/': {
+      id: '/_authenticated/warehouses/$id/'
+      path: '/warehouses/$id'
+      fullPath: '/warehouses/$id'
+      preLoaderRoute: typeof AuthenticatedWarehousesIdIndexRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
     '/_authenticated/warehouse-partners/add/': {
@@ -1154,6 +1187,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/tools/reports/download-reports'
       preLoaderRoute: typeof AuthenticatedToolsReportsDownloadReportsRouteRouteImport
       parentRoute: typeof AuthenticatedToolsReportsRouteRoute
+    }
+    '/_authenticated/warehouses/$id/edit/': {
+      id: '/_authenticated/warehouses/$id/edit/'
+      path: '/warehouses/$id/edit'
+      fullPath: '/warehouses/$id/edit'
+      preLoaderRoute: typeof AuthenticatedWarehousesIdEditIndexRouteImport
+      parentRoute: typeof AuthenticatedRoute
     }
     '/_authenticated/tools/reports/reports-scheduler/': {
       id: '/_authenticated/tools/reports/reports-scheduler/'
@@ -1487,6 +1527,7 @@ interface AuthenticatedRouteChildren {
   AuthenticatedRackIndexRoute: typeof AuthenticatedRackIndexRoute
   AuthenticatedToolsIndexRoute: typeof AuthenticatedToolsIndexRoute
   AuthenticatedWarehousePartnersIndexRoute: typeof AuthenticatedWarehousePartnersIndexRoute
+  AuthenticatedWarehousesIndexRoute: typeof AuthenticatedWarehousesIndexRoute
   AuthenticatedAccessControlUsersIndexRoute: typeof AuthenticatedAccessControlUsersIndexRoute
   AuthenticatedCarrierPartnersAddIndexRoute: typeof AuthenticatedCarrierPartnersAddIndexRoute
   AuthenticatedLocationServiceabilityIdIndexRoute: typeof AuthenticatedLocationServiceabilityIdIndexRoute
@@ -1500,8 +1541,8 @@ interface AuthenticatedRouteChildren {
   AuthenticatedRevenueDashboardSupportIndexRoute: typeof AuthenticatedRevenueDashboardSupportIndexRoute
   AuthenticatedToolsActivityLogsIndexRoute: typeof AuthenticatedToolsActivityLogsIndexRoute
   AuthenticatedWarehousePartnersAddIndexRoute: typeof AuthenticatedWarehousePartnersAddIndexRoute
-  AuthenticatedWarehouseCreateIndexRoute: typeof AuthenticatedWarehouseCreateIndexRoute
-  AuthenticatedWarehouseListIndexRoute: typeof AuthenticatedWarehouseListIndexRoute
+  AuthenticatedWarehousesIdIndexRoute: typeof AuthenticatedWarehousesIdIndexRoute
+  AuthenticatedWarehousesCreateIndexRoute: typeof AuthenticatedWarehousesCreateIndexRoute
   AuthenticatedAccessControlRolesCreateIndexRoute: typeof AuthenticatedAccessControlRolesCreateIndexRoute
   AuthenticatedAccessControlUsersCreateIndexRoute: typeof AuthenticatedAccessControlUsersCreateIndexRoute
   AuthenticatedLocationServiceabilityIdEditIndexRoute: typeof AuthenticatedLocationServiceabilityIdEditIndexRoute
@@ -1509,6 +1550,7 @@ interface AuthenticatedRouteChildren {
   AuthenticatedRevenueDashboardMyEarningsSettlementsAndPayoutsIndexRoute: typeof AuthenticatedRevenueDashboardMyEarningsSettlementsAndPayoutsIndexRoute
   AuthenticatedRevenueDashboardReportsCommissionBreakdownIndexRoute: typeof AuthenticatedRevenueDashboardReportsCommissionBreakdownIndexRoute
   AuthenticatedRevenueDashboardReportsShipmentRevenueIndexRoute: typeof AuthenticatedRevenueDashboardReportsShipmentRevenueIndexRoute
+  AuthenticatedWarehousesIdEditIndexRoute: typeof AuthenticatedWarehousesIdEditIndexRoute
 }
 
 const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
@@ -1533,6 +1575,7 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedToolsIndexRoute: AuthenticatedToolsIndexRoute,
   AuthenticatedWarehousePartnersIndexRoute:
     AuthenticatedWarehousePartnersIndexRoute,
+  AuthenticatedWarehousesIndexRoute: AuthenticatedWarehousesIndexRoute,
   AuthenticatedAccessControlUsersIndexRoute:
     AuthenticatedAccessControlUsersIndexRoute,
   AuthenticatedCarrierPartnersAddIndexRoute:
@@ -1555,9 +1598,9 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
     AuthenticatedToolsActivityLogsIndexRoute,
   AuthenticatedWarehousePartnersAddIndexRoute:
     AuthenticatedWarehousePartnersAddIndexRoute,
-  AuthenticatedWarehouseCreateIndexRoute:
-    AuthenticatedWarehouseCreateIndexRoute,
-  AuthenticatedWarehouseListIndexRoute: AuthenticatedWarehouseListIndexRoute,
+  AuthenticatedWarehousesIdIndexRoute: AuthenticatedWarehousesIdIndexRoute,
+  AuthenticatedWarehousesCreateIndexRoute:
+    AuthenticatedWarehousesCreateIndexRoute,
   AuthenticatedAccessControlRolesCreateIndexRoute:
     AuthenticatedAccessControlRolesCreateIndexRoute,
   AuthenticatedAccessControlUsersCreateIndexRoute:
@@ -1572,6 +1615,8 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
     AuthenticatedRevenueDashboardReportsCommissionBreakdownIndexRoute,
   AuthenticatedRevenueDashboardReportsShipmentRevenueIndexRoute:
     AuthenticatedRevenueDashboardReportsShipmentRevenueIndexRoute,
+  AuthenticatedWarehousesIdEditIndexRoute:
+    AuthenticatedWarehousesIdEditIndexRoute,
 }
 
 const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(

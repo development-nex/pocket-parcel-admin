@@ -126,19 +126,9 @@ const sidebarData = [
     ],
   },
   {
-    key: "warehouse",
+    key: "warehouses",
     icon: <TbBuildingWarehouse />,
-    label: "Warehouse",
-    children: [
-      {
-        key: "/warehouse/list",
-        label: <Link to="/warehouse/list">List</Link>,
-      },
-      {
-        key: "/warehouse/create",
-        label: <Link to="/warehouse/create">Create</Link>,
-      },
-    ],
+    label: <Link to="/warehouses">Warehouses</Link>,
   },
   {
     key: "warehouse-partners",

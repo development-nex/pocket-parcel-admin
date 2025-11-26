@@ -18,23 +18,9 @@ const BreadcrumbComponent = ({ items, className, ...rest }) => {
       title: item.title,
     };
   });
-  console.log(formattedItems);
   return (
     <div className={cn(className)}>
-      <Breadcrumb
-        className="text-xs!"
-        items={items?.map((item) => {
-          if (item.href) {
-            return {
-              title: <Link to={item.href}>{item.title}</Link>,
-            };
-          }
-          return {
-            title: item.title,
-          };
-        })}
-        {...rest}
-      />
+      <Breadcrumb className="text-xs!" items={formattedItems} {...rest} />
     </div>
   );
 };
