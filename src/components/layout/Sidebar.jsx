@@ -2,8 +2,8 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "@tanstack/react-router";
 import { Layout } from "antd";
-import POCKET_PARCEL_DESKTOP from "../../assets/Pocket_parcel_Desktop.svg";
-import POCKET_PARCEL_MOBILE from "../../assets/Pocket_parcel_Mobile.png";
+import POCKET_PARCEL_DESKTOP from "../../assets/Pocket_Parcel_Desktop.svg";
+import POCKET_PARCEL_MOBILE from "../../assets/Pocket_Parcel_Mobile.png";
 
 //icons
 import { AiOutlinePieChart, AiTwotoneContainer } from "react-icons/ai";
@@ -136,9 +136,9 @@ const sidebarData = [
     label: <Link to="/warehouse-partners">Warehouse Partners</Link>,
   },
   {
-    key: "carrier-partners",
+    key: "courier-partners",
     icon: <FaUsersCog />,
-    label: <Link to="/carrier-partners">Carrier Partners</Link>,
+    label: <Link to="/courier-partners">Courier Partners</Link>,
   },
   {
     key: "location-serviceability",

@@ -24,7 +24,7 @@ import { Route as AuthenticatedOverviewIndexRouteImport } from './routes/_authen
 import { Route as AuthenticatedOrdersIndexRouteImport } from './routes/_authenticated/orders/index'
 import { Route as AuthenticatedLocationServiceabilityIndexRouteImport } from './routes/_authenticated/location-serviceability/index'
 import { Route as AuthenticatedHomeIndexRouteImport } from './routes/_authenticated/home/index'
-import { Route as AuthenticatedCarrierPartnersIndexRouteImport } from './routes/_authenticated/carrier-partners/index'
+import { Route as AuthenticatedCourierPartnersIndexRouteImport } from './routes/_authenticated/courier-partners/index'
 import { Route as AuthenticatedToolsReportsRouteRouteImport } from './routes/_authenticated/tools/reports/route'
 import { Route as AuthenticatedToolsRateCardRouteRouteImport } from './routes/_authenticated/tools/rate-card/route'
 import { Route as AuthenticatedToolsRateCalculatorRouteRouteImport } from './routes/_authenticated/tools/rate-calculator/route'
@@ -51,7 +51,8 @@ import { Route as AuthenticatedNdrReportsIndexRouteImport } from './routes/_auth
 import { Route as AuthenticatedNdrCasesIndexRouteImport } from './routes/_authenticated/ndr/cases/index'
 import { Route as AuthenticatedLocationServiceabilityCreateIndexRouteImport } from './routes/_authenticated/location-serviceability/create/index'
 import { Route as AuthenticatedLocationServiceabilityIdIndexRouteImport } from './routes/_authenticated/location-serviceability/$id/index'
-import { Route as AuthenticatedCarrierPartnersAddIndexRouteImport } from './routes/_authenticated/carrier-partners/add/index'
+import { Route as AuthenticatedCourierPartnersCreateIndexRouteImport } from './routes/_authenticated/courier-partners/create/index'
+import { Route as AuthenticatedCourierPartnersIdIndexRouteImport } from './routes/_authenticated/courier-partners/$id/index'
 import { Route as AuthenticatedAccessControlUsersIndexRouteImport } from './routes/_authenticated/access-control/users/index'
 import { Route as AuthenticatedToolsReportsDownloadReportsRouteRouteImport } from './routes/_authenticated/tools/reports/download-reports/route'
 import { Route as AuthenticatedWarehousesIdEditIndexRouteImport } from './routes/_authenticated/warehouses/$id/edit/index'
@@ -72,6 +73,7 @@ import { Route as AuthenticatedDashboardDomesticRtoIndexRouteImport } from './ro
 import { Route as AuthenticatedDashboardDomesticOverviewIndexRouteImport } from './routes/_authenticated/dashboard/domestic/overview/index'
 import { Route as AuthenticatedDashboardDomesticOrdersIndexRouteImport } from './routes/_authenticated/dashboard/domestic/orders/index'
 import { Route as AuthenticatedDashboardDomesticNdrIndexRouteImport } from './routes/_authenticated/dashboard/domestic/ndr/index'
+import { Route as AuthenticatedCourierPartnersIdEditIndexRouteImport } from './routes/_authenticated/courier-partners/$id/edit/index'
 import { Route as AuthenticatedAccessControlUsersCreateIndexRouteImport } from './routes/_authenticated/access-control/users/create/index'
 import { Route as AuthenticatedAccessControlRolesCreateIndexRouteImport } from './routes/_authenticated/access-control/roles/create/index'
 import { Route as AuthenticatedToolsReportsDownloadReportsInstantReportsIndexRouteImport } from './routes/_authenticated/tools/reports/download-reports/instant-reports/index'
@@ -152,10 +154,10 @@ const AuthenticatedHomeIndexRoute = AuthenticatedHomeIndexRouteImport.update({
   path: '/home/',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
-const AuthenticatedCarrierPartnersIndexRoute =
-  AuthenticatedCarrierPartnersIndexRouteImport.update({
-    id: '/carrier-partners/',
-    path: '/carrier-partners/',
+const AuthenticatedCourierPartnersIndexRoute =
+  AuthenticatedCourierPartnersIndexRouteImport.update({
+    id: '/courier-partners/',
+    path: '/courier-partners/',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
 const AuthenticatedToolsReportsRouteRoute =
@@ -314,10 +316,16 @@ const AuthenticatedLocationServiceabilityIdIndexRoute =
     path: '/location-serviceability/$id/',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
-const AuthenticatedCarrierPartnersAddIndexRoute =
-  AuthenticatedCarrierPartnersAddIndexRouteImport.update({
-    id: '/carrier-partners/add/',
-    path: '/carrier-partners/add/',
+const AuthenticatedCourierPartnersCreateIndexRoute =
+  AuthenticatedCourierPartnersCreateIndexRouteImport.update({
+    id: '/courier-partners/create/',
+    path: '/courier-partners/create/',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedCourierPartnersIdIndexRoute =
+  AuthenticatedCourierPartnersIdIndexRouteImport.update({
+    id: '/courier-partners/$id/',
+    path: '/courier-partners/$id/',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
 const AuthenticatedAccessControlUsersIndexRoute =
@@ -444,6 +452,12 @@ const AuthenticatedDashboardDomesticNdrIndexRoute =
     path: '/ndr/',
     getParentRoute: () => AuthenticatedDashboardDomesticRouteRoute,
   } as any)
+const AuthenticatedCourierPartnersIdEditIndexRoute =
+  AuthenticatedCourierPartnersIdEditIndexRouteImport.update({
+    id: '/courier-partners/$id/edit/',
+    path: '/courier-partners/$id/edit/',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
 const AuthenticatedAccessControlUsersCreateIndexRoute =
   AuthenticatedAccessControlUsersCreateIndexRouteImport.update({
     id: '/access-control/users/create/',
@@ -488,7 +502,7 @@ export interface FileRoutesByFullPath {
   '/tools/rate-calculator': typeof AuthenticatedToolsRateCalculatorRouteRouteWithChildren
   '/tools/rate-card': typeof AuthenticatedToolsRateCardRouteRouteWithChildren
   '/tools/reports': typeof AuthenticatedToolsReportsRouteRouteWithChildren
-  '/carrier-partners': typeof AuthenticatedCarrierPartnersIndexRoute
+  '/courier-partners': typeof AuthenticatedCourierPartnersIndexRoute
   '/home': typeof AuthenticatedHomeIndexRoute
   '/location-serviceability': typeof AuthenticatedLocationServiceabilityIndexRoute
   '/orders': typeof AuthenticatedOrdersIndexRoute
@@ -499,7 +513,8 @@ export interface FileRoutesByFullPath {
   '/warehouses': typeof AuthenticatedWarehousesIndexRoute
   '/tools/reports/download-reports': typeof AuthenticatedToolsReportsDownloadReportsRouteRouteWithChildren
   '/access-control/users': typeof AuthenticatedAccessControlUsersIndexRoute
-  '/carrier-partners/add': typeof AuthenticatedCarrierPartnersAddIndexRoute
+  '/courier-partners/$id': typeof AuthenticatedCourierPartnersIdIndexRoute
+  '/courier-partners/create': typeof AuthenticatedCourierPartnersCreateIndexRoute
   '/location-serviceability/$id': typeof AuthenticatedLocationServiceabilityIdIndexRoute
   '/location-serviceability/create': typeof AuthenticatedLocationServiceabilityCreateIndexRoute
   '/ndr/cases': typeof AuthenticatedNdrCasesIndexRoute
@@ -522,6 +537,7 @@ export interface FileRoutesByFullPath {
   '/warehouses/create': typeof AuthenticatedWarehousesCreateIndexRoute
   '/access-control/roles/create': typeof AuthenticatedAccessControlRolesCreateIndexRoute
   '/access-control/users/create': typeof AuthenticatedAccessControlUsersCreateIndexRoute
+  '/courier-partners/$id/edit': typeof AuthenticatedCourierPartnersIdEditIndexRoute
   '/dashboard/domestic/ndr': typeof AuthenticatedDashboardDomesticNdrIndexRoute
   '/dashboard/domestic/orders': typeof AuthenticatedDashboardDomesticOrdersIndexRoute
   '/dashboard/domestic/overview': typeof AuthenticatedDashboardDomesticOverviewIndexRoute
@@ -554,7 +570,7 @@ export interface FileRoutesByTo {
   '/tools/rate-calculator': typeof AuthenticatedToolsRateCalculatorRouteRouteWithChildren
   '/tools/rate-card': typeof AuthenticatedToolsRateCardRouteRouteWithChildren
   '/tools/reports': typeof AuthenticatedToolsReportsRouteRouteWithChildren
-  '/carrier-partners': typeof AuthenticatedCarrierPartnersIndexRoute
+  '/courier-partners': typeof AuthenticatedCourierPartnersIndexRoute
   '/home': typeof AuthenticatedHomeIndexRoute
   '/location-serviceability': typeof AuthenticatedLocationServiceabilityIndexRoute
   '/orders': typeof AuthenticatedOrdersIndexRoute
@@ -565,7 +581,8 @@ export interface FileRoutesByTo {
   '/warehouses': typeof AuthenticatedWarehousesIndexRoute
   '/tools/reports/download-reports': typeof AuthenticatedToolsReportsDownloadReportsRouteRouteWithChildren
   '/access-control/users': typeof AuthenticatedAccessControlUsersIndexRoute
-  '/carrier-partners/add': typeof AuthenticatedCarrierPartnersAddIndexRoute
+  '/courier-partners/$id': typeof AuthenticatedCourierPartnersIdIndexRoute
+  '/courier-partners/create': typeof AuthenticatedCourierPartnersCreateIndexRoute
   '/location-serviceability/$id': typeof AuthenticatedLocationServiceabilityIdIndexRoute
   '/location-serviceability/create': typeof AuthenticatedLocationServiceabilityCreateIndexRoute
   '/ndr/cases': typeof AuthenticatedNdrCasesIndexRoute
@@ -588,6 +605,7 @@ export interface FileRoutesByTo {
   '/warehouses/create': typeof AuthenticatedWarehousesCreateIndexRoute
   '/access-control/roles/create': typeof AuthenticatedAccessControlRolesCreateIndexRoute
   '/access-control/users/create': typeof AuthenticatedAccessControlUsersCreateIndexRoute
+  '/courier-partners/$id/edit': typeof AuthenticatedCourierPartnersIdEditIndexRoute
   '/dashboard/domestic/ndr': typeof AuthenticatedDashboardDomesticNdrIndexRoute
   '/dashboard/domestic/orders': typeof AuthenticatedDashboardDomesticOrdersIndexRoute
   '/dashboard/domestic/overview': typeof AuthenticatedDashboardDomesticOverviewIndexRoute
@@ -622,7 +640,7 @@ export interface FileRoutesById {
   '/_authenticated/tools/rate-calculator': typeof AuthenticatedToolsRateCalculatorRouteRouteWithChildren
   '/_authenticated/tools/rate-card': typeof AuthenticatedToolsRateCardRouteRouteWithChildren
   '/_authenticated/tools/reports': typeof AuthenticatedToolsReportsRouteRouteWithChildren
-  '/_authenticated/carrier-partners/': typeof AuthenticatedCarrierPartnersIndexRoute
+  '/_authenticated/courier-partners/': typeof AuthenticatedCourierPartnersIndexRoute
   '/_authenticated/home/': typeof AuthenticatedHomeIndexRoute
   '/_authenticated/location-serviceability/': typeof AuthenticatedLocationServiceabilityIndexRoute
   '/_authenticated/orders/': typeof AuthenticatedOrdersIndexRoute
@@ -633,7 +651,8 @@ export interface FileRoutesById {
   '/_authenticated/warehouses/': typeof AuthenticatedWarehousesIndexRoute
   '/_authenticated/tools/reports/download-reports': typeof AuthenticatedToolsReportsDownloadReportsRouteRouteWithChildren
   '/_authenticated/access-control/users/': typeof AuthenticatedAccessControlUsersIndexRoute
-  '/_authenticated/carrier-partners/add/': typeof AuthenticatedCarrierPartnersAddIndexRoute
+  '/_authenticated/courier-partners/$id/': typeof AuthenticatedCourierPartnersIdIndexRoute
+  '/_authenticated/courier-partners/create/': typeof AuthenticatedCourierPartnersCreateIndexRoute
   '/_authenticated/location-serviceability/$id/': typeof AuthenticatedLocationServiceabilityIdIndexRoute
   '/_authenticated/location-serviceability/create/': typeof AuthenticatedLocationServiceabilityCreateIndexRoute
   '/_authenticated/ndr/cases/': typeof AuthenticatedNdrCasesIndexRoute
@@ -656,6 +675,7 @@ export interface FileRoutesById {
   '/_authenticated/warehouses/create/': typeof AuthenticatedWarehousesCreateIndexRoute
   '/_authenticated/access-control/roles/create/': typeof AuthenticatedAccessControlRolesCreateIndexRoute
   '/_authenticated/access-control/users/create/': typeof AuthenticatedAccessControlUsersCreateIndexRoute
+  '/_authenticated/courier-partners/$id/edit/': typeof AuthenticatedCourierPartnersIdEditIndexRoute
   '/_authenticated/dashboard/domestic/ndr/': typeof AuthenticatedDashboardDomesticNdrIndexRoute
   '/_authenticated/dashboard/domestic/orders/': typeof AuthenticatedDashboardDomesticOrdersIndexRoute
   '/_authenticated/dashboard/domestic/overview/': typeof AuthenticatedDashboardDomesticOverviewIndexRoute
@@ -690,7 +710,7 @@ export interface FileRouteTypes {
     | '/tools/rate-calculator'
     | '/tools/rate-card'
     | '/tools/reports'
-    | '/carrier-partners'
+    | '/courier-partners'
     | '/home'
     | '/location-serviceability'
     | '/orders'
@@ -701,7 +721,8 @@ export interface FileRouteTypes {
     | '/warehouses'
     | '/tools/reports/download-reports'
     | '/access-control/users'
-    | '/carrier-partners/add'
+    | '/courier-partners/$id'
+    | '/courier-partners/create'
     | '/location-serviceability/$id'
     | '/location-serviceability/create'
     | '/ndr/cases'
@@ -724,6 +745,7 @@ export interface FileRouteTypes {
     | '/warehouses/create'
     | '/access-control/roles/create'
     | '/access-control/users/create'
+    | '/courier-partners/$id/edit'
     | '/dashboard/domestic/ndr'
     | '/dashboard/domestic/orders'
     | '/dashboard/domestic/overview'
@@ -756,7 +778,7 @@ export interface FileRouteTypes {
     | '/tools/rate-calculator'
     | '/tools/rate-card'
     | '/tools/reports'
-    | '/carrier-partners'
+    | '/courier-partners'
     | '/home'
     | '/location-serviceability'
     | '/orders'
@@ -767,7 +789,8 @@ export interface FileRouteTypes {
     | '/warehouses'
     | '/tools/reports/download-reports'
     | '/access-control/users'
-    | '/carrier-partners/add'
+    | '/courier-partners/$id'
+    | '/courier-partners/create'
     | '/location-serviceability/$id'
     | '/location-serviceability/create'
     | '/ndr/cases'
@@ -790,6 +813,7 @@ export interface FileRouteTypes {
     | '/warehouses/create'
     | '/access-control/roles/create'
     | '/access-control/users/create'
+    | '/courier-partners/$id/edit'
     | '/dashboard/domestic/ndr'
     | '/dashboard/domestic/orders'
     | '/dashboard/domestic/overview'
@@ -823,7 +847,7 @@ export interface FileRouteTypes {
     | '/_authenticated/tools/rate-calculator'
     | '/_authenticated/tools/rate-card'
     | '/_authenticated/tools/reports'
-    | '/_authenticated/carrier-partners/'
+    | '/_authenticated/courier-partners/'
     | '/_authenticated/home/'
     | '/_authenticated/location-serviceability/'
     | '/_authenticated/orders/'
@@ -834,7 +858,8 @@ export interface FileRouteTypes {
     | '/_authenticated/warehouses/'
     | '/_authenticated/tools/reports/download-reports'
     | '/_authenticated/access-control/users/'
-    | '/_authenticated/carrier-partners/add/'
+    | '/_authenticated/courier-partners/$id/'
+    | '/_authenticated/courier-partners/create/'
     | '/_authenticated/location-serviceability/$id/'
     | '/_authenticated/location-serviceability/create/'
     | '/_authenticated/ndr/cases/'
@@ -857,6 +882,7 @@ export interface FileRouteTypes {
     | '/_authenticated/warehouses/create/'
     | '/_authenticated/access-control/roles/create/'
     | '/_authenticated/access-control/users/create/'
+    | '/_authenticated/courier-partners/$id/edit/'
     | '/_authenticated/dashboard/domestic/ndr/'
     | '/_authenticated/dashboard/domestic/orders/'
     | '/_authenticated/dashboard/domestic/overview/'
@@ -978,11 +1004,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedHomeIndexRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
-    '/_authenticated/carrier-partners/': {
-      id: '/_authenticated/carrier-partners/'
-      path: '/carrier-partners'
-      fullPath: '/carrier-partners'
-      preLoaderRoute: typeof AuthenticatedCarrierPartnersIndexRouteImport
+    '/_authenticated/courier-partners/': {
+      id: '/_authenticated/courier-partners/'
+      path: '/courier-partners'
+      fullPath: '/courier-partners'
+      preLoaderRoute: typeof AuthenticatedCourierPartnersIndexRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
     '/_authenticated/tools/reports': {
@@ -1167,11 +1193,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedLocationServiceabilityIdIndexRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
-    '/_authenticated/carrier-partners/add/': {
-      id: '/_authenticated/carrier-partners/add/'
-      path: '/carrier-partners/add'
-      fullPath: '/carrier-partners/add'
-      preLoaderRoute: typeof AuthenticatedCarrierPartnersAddIndexRouteImport
+    '/_authenticated/courier-partners/create/': {
+      id: '/_authenticated/courier-partners/create/'
+      path: '/courier-partners/create'
+      fullPath: '/courier-partners/create'
+      preLoaderRoute: typeof AuthenticatedCourierPartnersCreateIndexRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/courier-partners/$id/': {
+      id: '/_authenticated/courier-partners/$id/'
+      path: '/courier-partners/$id'
+      fullPath: '/courier-partners/$id'
+      preLoaderRoute: typeof AuthenticatedCourierPartnersIdIndexRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
     '/_authenticated/access-control/users/': {
@@ -1313,6 +1346,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/dashboard/domestic/ndr'
       preLoaderRoute: typeof AuthenticatedDashboardDomesticNdrIndexRouteImport
       parentRoute: typeof AuthenticatedDashboardDomesticRouteRoute
+    }
+    '/_authenticated/courier-partners/$id/edit/': {
+      id: '/_authenticated/courier-partners/$id/edit/'
+      path: '/courier-partners/$id/edit'
+      fullPath: '/courier-partners/$id/edit'
+      preLoaderRoute: typeof AuthenticatedCourierPartnersIdEditIndexRouteImport
+      parentRoute: typeof AuthenticatedRoute
     }
     '/_authenticated/access-control/users/create/': {
       id: '/_authenticated/access-control/users/create/'
@@ -1519,7 +1559,7 @@ interface AuthenticatedRouteChildren {
   AuthenticatedToolsRateCalculatorRouteRoute: typeof AuthenticatedToolsRateCalculatorRouteRouteWithChildren
   AuthenticatedToolsRateCardRouteRoute: typeof AuthenticatedToolsRateCardRouteRouteWithChildren
   AuthenticatedToolsReportsRouteRoute: typeof AuthenticatedToolsReportsRouteRouteWithChildren
-  AuthenticatedCarrierPartnersIndexRoute: typeof AuthenticatedCarrierPartnersIndexRoute
+  AuthenticatedCourierPartnersIndexRoute: typeof AuthenticatedCourierPartnersIndexRoute
   AuthenticatedHomeIndexRoute: typeof AuthenticatedHomeIndexRoute
   AuthenticatedLocationServiceabilityIndexRoute: typeof AuthenticatedLocationServiceabilityIndexRoute
   AuthenticatedOrdersIndexRoute: typeof AuthenticatedOrdersIndexRoute
@@ -1529,7 +1569,8 @@ interface AuthenticatedRouteChildren {
   AuthenticatedWarehousePartnersIndexRoute: typeof AuthenticatedWarehousePartnersIndexRoute
   AuthenticatedWarehousesIndexRoute: typeof AuthenticatedWarehousesIndexRoute
   AuthenticatedAccessControlUsersIndexRoute: typeof AuthenticatedAccessControlUsersIndexRoute
-  AuthenticatedCarrierPartnersAddIndexRoute: typeof AuthenticatedCarrierPartnersAddIndexRoute
+  AuthenticatedCourierPartnersIdIndexRoute: typeof AuthenticatedCourierPartnersIdIndexRoute
+  AuthenticatedCourierPartnersCreateIndexRoute: typeof AuthenticatedCourierPartnersCreateIndexRoute
   AuthenticatedLocationServiceabilityIdIndexRoute: typeof AuthenticatedLocationServiceabilityIdIndexRoute
   AuthenticatedLocationServiceabilityCreateIndexRoute: typeof AuthenticatedLocationServiceabilityCreateIndexRoute
   AuthenticatedNdrCasesIndexRoute: typeof AuthenticatedNdrCasesIndexRoute
@@ -1545,6 +1586,7 @@ interface AuthenticatedRouteChildren {
   AuthenticatedWarehousesCreateIndexRoute: typeof AuthenticatedWarehousesCreateIndexRoute
   AuthenticatedAccessControlRolesCreateIndexRoute: typeof AuthenticatedAccessControlRolesCreateIndexRoute
   AuthenticatedAccessControlUsersCreateIndexRoute: typeof AuthenticatedAccessControlUsersCreateIndexRoute
+  AuthenticatedCourierPartnersIdEditIndexRoute: typeof AuthenticatedCourierPartnersIdEditIndexRoute
   AuthenticatedLocationServiceabilityIdEditIndexRoute: typeof AuthenticatedLocationServiceabilityIdEditIndexRoute
   AuthenticatedRevenueDashboardMyEarningsRevenueSummaryIndexRoute: typeof AuthenticatedRevenueDashboardMyEarningsRevenueSummaryIndexRoute
   AuthenticatedRevenueDashboardMyEarningsSettlementsAndPayoutsIndexRoute: typeof AuthenticatedRevenueDashboardMyEarningsSettlementsAndPayoutsIndexRoute
@@ -1564,8 +1606,8 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
     AuthenticatedToolsRateCardRouteRouteWithChildren,
   AuthenticatedToolsReportsRouteRoute:
     AuthenticatedToolsReportsRouteRouteWithChildren,
-  AuthenticatedCarrierPartnersIndexRoute:
-    AuthenticatedCarrierPartnersIndexRoute,
+  AuthenticatedCourierPartnersIndexRoute:
+    AuthenticatedCourierPartnersIndexRoute,
   AuthenticatedHomeIndexRoute: AuthenticatedHomeIndexRoute,
   AuthenticatedLocationServiceabilityIndexRoute:
     AuthenticatedLocationServiceabilityIndexRoute,
@@ -1578,8 +1620,10 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedWarehousesIndexRoute: AuthenticatedWarehousesIndexRoute,
   AuthenticatedAccessControlUsersIndexRoute:
     AuthenticatedAccessControlUsersIndexRoute,
-  AuthenticatedCarrierPartnersAddIndexRoute:
-    AuthenticatedCarrierPartnersAddIndexRoute,
+  AuthenticatedCourierPartnersIdIndexRoute:
+    AuthenticatedCourierPartnersIdIndexRoute,
+  AuthenticatedCourierPartnersCreateIndexRoute:
+    AuthenticatedCourierPartnersCreateIndexRoute,
   AuthenticatedLocationServiceabilityIdIndexRoute:
     AuthenticatedLocationServiceabilityIdIndexRoute,
   AuthenticatedLocationServiceabilityCreateIndexRoute:
@@ -1605,6 +1649,8 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
     AuthenticatedAccessControlRolesCreateIndexRoute,
   AuthenticatedAccessControlUsersCreateIndexRoute:
     AuthenticatedAccessControlUsersCreateIndexRoute,
+  AuthenticatedCourierPartnersIdEditIndexRoute:
+    AuthenticatedCourierPartnersIdEditIndexRoute,
   AuthenticatedLocationServiceabilityIdEditIndexRoute:
     AuthenticatedLocationServiceabilityIdEditIndexRoute,
   AuthenticatedRevenueDashboardMyEarningsRevenueSummaryIndexRoute:

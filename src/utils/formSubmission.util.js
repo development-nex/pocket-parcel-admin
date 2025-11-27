@@ -24,6 +24,7 @@ export const handleFormSubmission = async ({
     // Call the submission function
     await onSubmit(parsedData);
   } catch (err) {
+    console.log("parsed", err);
     if (err.name === "ZodError") {
       applyZodErrorsToForm(form, err);
       console.log(err);
