@@ -12,6 +12,7 @@ import {
   BellOutlined,
   DollarCircleOutlined,
   HomeOutlined,
+  UserOutlined,
 } from "@ant-design/icons";
 import { FaUsersCog, FaWarehouse } from "react-icons/fa";
 import { BiCabinet } from "react-icons/bi";
@@ -153,6 +154,11 @@ const sidebarData = [
     key: "notification-management",
     icon: <BellOutlined />,
     label: <Link to="/notification-management">Notification Management</Link>,
+  },
+  {
+    key: "users-management",
+    icon: <UserOutlined />,
+    label: <Link to="/users-management">Users Management</Link>,
   },
   {
     key: "rack",
