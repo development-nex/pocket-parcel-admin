@@ -8,7 +8,11 @@ import POCKET_PARCEL_MOBILE from "../../assets/Pocket_Parcel_Mobile.png";
 //icons
 import { AiOutlinePieChart, AiTwotoneContainer } from "react-icons/ai";
 import { TbBuildingWarehouse, TbTruckReturn } from "react-icons/tb";
-import { DollarCircleOutlined, HomeOutlined } from "@ant-design/icons";
+import {
+  BellOutlined,
+  DollarCircleOutlined,
+  HomeOutlined,
+} from "@ant-design/icons";
 import { FaUsersCog, FaWarehouse } from "react-icons/fa";
 import { BiCabinet } from "react-icons/bi";
 import SidebarMenu from "./SidebarMenu";
@@ -144,6 +148,11 @@ const sidebarData = [
     key: "location-serviceability",
     icon: <FaUsersCog />,
     label: <Link to="/location-serviceability">Location Serviceability</Link>,
+  },
+  {
+    key: "notification-management",
+    icon: <BellOutlined />,
+    label: <Link to="/notification-management">Notification Management</Link>,
   },
   {
     key: "rack",

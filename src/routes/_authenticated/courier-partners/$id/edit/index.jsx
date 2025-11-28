@@ -33,7 +33,7 @@ function RouteComponent() {
   const { mutate, isPending } = useUpdateCourierPartner({
     onSuccess: async () => {
       await queryClient.invalidateQueries(["courier-partners"]);
-      message.success("Courier Partner created successfully");
+      message.success("Courier Partner updated successfully");
       form.resetFields();
       navigate({ to: "/courier-partners" });
     },
